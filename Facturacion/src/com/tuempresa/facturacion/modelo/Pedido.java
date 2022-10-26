@@ -11,9 +11,8 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@View(extendsView = "super.DEFAULT", members = "diasEntregaEstimados," + "factura { factura } ")
+@View(extendsView = "super.DEFAULT", members = "diasEntregaEstimados, entregado, " + "factura { factura }")
 @View(name = "SinClienteNiFactura", members = "anyo, numero, fecha;" + "detalles;" + "observaciones")
-
 public class Pedido extends DocumentoComercial {
 
 	@ManyToOne
@@ -40,4 +39,7 @@ public class Pedido extends DocumentoComercial {
 	private void recalcularDiasEntrega() {
 		setDiasEntrega(getDiasEntregaEstimados());
 	}
+
+	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+	boolean entregado;
 }
